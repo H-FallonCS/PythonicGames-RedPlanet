@@ -16,7 +16,7 @@ WHITE = (255,255,255)
 
 win = pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Red Planet")
-
+pygame.mouse.set_visible(False)
 
 class Player():
 
@@ -31,12 +31,13 @@ class Player():
     def move(self):
         mouse_pos = pygame.mouse.get_pos()
 
-        self.x,self.y = mouse_pos
-    
+        self.x = mouse_pos[0]-25
+        self.y = mouse_pos[1]-25
+
     def draw(self):
         self.move()
 
-        win.blit(self.texture,(self.x-50,self.y-50))
+        win.blit(self.texture,(self.x,self.y))
 
 def draw():
     win.fill(WHITE)
