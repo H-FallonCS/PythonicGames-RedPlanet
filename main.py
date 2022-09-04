@@ -11,7 +11,8 @@ FPS = 60
 
 #colors
 RED = (223,26,26)
-WHITE = (0,0,0)
+BLACK = (0,0,0)
+WHITE = (255,255,255)
 
 win = pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Red Planet")
@@ -20,10 +21,11 @@ pygame.display.set_caption("Red Planet")
 class Player():
 
     def __init__(self,x,y,size,color):
-        self.x = x
-        self.y = y
+        self.x,self.y = pygame.mouse.get_pos()
         self.size = size
         self.color = color
+
+        self.texture = pygame.image.load('planet.png')
 
 
     def move(self):
@@ -34,7 +36,7 @@ class Player():
     def draw(self):
         self.move()
 
-        pygame.draw.circle(win,self.color,(self.x,self.y),self.size,0)
+        win.blit(self.texture,(self.x-50,self.y-50))
 
 def draw():
     win.fill(WHITE)
