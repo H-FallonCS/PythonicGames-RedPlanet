@@ -4,8 +4,8 @@ import pygame
 pygame.init()
 
 #screen variables
-WIDTH = 0
-HEIGHT = 0
+WIDTH = 500
+HEIGHT = 500
 
 FPS = 60
 
@@ -14,11 +14,11 @@ RED = (223,26,26)
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 
-win = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
+win = pygame.display.set_mode((0,0))
 pygame.display.set_caption("Red Planet")
 pygame.mouse.set_visible(False)
 
-WIDTH, HEIGHT = win.get_size()
+
 
 class Player:
 
