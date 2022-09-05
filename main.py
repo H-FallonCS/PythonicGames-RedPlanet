@@ -4,8 +4,8 @@ import pygame
 pygame.init()
 
 #screen variables
-WIDTH = 500
-HEIGHT = 500
+WIDTH = 0
+HEIGHT = 0
 
 FPS = 60
 
@@ -14,11 +14,13 @@ RED = (223,26,26)
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 
-win = pygame.display.set_mode((WIDTH,HEIGHT))
+win = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 pygame.display.set_caption("Red Planet")
 pygame.mouse.set_visible(False)
 
-class Player():
+WIDTH, HEIGHT = win.get_size()
+
+class Player:
 
     def __init__(self,x,y,size,color):
         self.x,self.y = pygame.mouse.get_pos()
@@ -39,6 +41,9 @@ class Player():
 
         win.blit(self.texture,(self.x,self.y))
 
+class Enemy:
+    pass
+
 def draw():
     win.fill(WHITE)
 
@@ -55,9 +60,14 @@ run = True
 while run:
 
     draw()
+    
 
     clock.tick(FPS)
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                run = False
