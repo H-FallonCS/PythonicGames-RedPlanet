@@ -1,4 +1,4 @@
-from turtle import width
+import random
 import pygame
 
 pygame.init()
@@ -53,28 +53,50 @@ class Asteroid:
         #have an x_direction that the asteroid will go and a y_direction
         self.x_dir = 0
         self.y_dir = 0
+
+
     def move(self):
-        speed =2
+         self.x += self.x_dir
+         self.y += self.y_dir
 
-        print(self.x)
+   
+    #depending on which side the asteroid spawns, set it to move in one direction for the x and y cords
+    def set_vel(self):     
 
+        #if the x cord is lef then  go right, if its right then  go left
+        x_speed = random.randint(1,3)
         if self.x <= -30:
-            self.x_dir = speed
+            self.x_dir = x_speed
         elif self.x >= 730:
-            self.x_dir = -speed
+            self.x_dir = -x_speed
+
+        y_speed = random.randint(1,3)
+
+        #if the y cord is below the half, go up, if its above the half go down
+        if self.y <= -30:
+            self.y_dir = y_speed
+        elif self.y >= 365:
+            self.y_dir = -y_speed
+        elif self.y <= 365:
+            self.y_dir = y_speed
+        elif self.y >= 730:
+            self.y_dir = -y_speed
+
+        
         
 
-        self.x += self.x_dir
+  
 
     def draw(self):
 
         self.move()
         win.blit(self.texture,(self.x,self.y))
+        print(self.x,self.y)
 
     def spawn(self):
 
-        self.x = -30
-        self.y = 350
+        self.x = -40
+        self.y = 100
     
 
 def draw():
@@ -92,6 +114,7 @@ player = Player(250,250,50,RED)
 asteroid = Asteroid()
 
 asteroid.spawn()
+asteroid.set_vel()
 
 run = True
 while run:
