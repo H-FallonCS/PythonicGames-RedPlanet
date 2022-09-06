@@ -14,6 +14,8 @@ RED = (223,26,26)
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 
+asteroids = []
+
 win = pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Red Planet")
 pygame.mouse.set_visible(False)
@@ -54,6 +56,8 @@ class Asteroid:
         self.x_dir = 0
         self.y_dir = 0
 
+        self.spawn()
+
 
     def move(self):
          self.x += self.x_dir
@@ -82,28 +86,48 @@ class Asteroid:
         elif self.y >= 730:
             self.y_dir = -y_speed
 
-        
-        
-
-  
-
     def draw(self):
 
         self.move()
         win.blit(self.texture,(self.x,self.y))
         print(self.x,self.y)
 
+    #will spawn the asteroids at certain spots
     def spawn(self):
 
-        self.x = -40
-        self.y = 100
-    
+        """this is probably a bad idea, but the point is to get a two option number, which we can then use to determine what side the asteroid will spawn"""
+        num = random.randint(0,1)
+        
+        #left side
+        if num == 0:
+            self.x = random.randint(-50,-30)
+        #right side
+        if num == 1:
+            self.x = random.randint(730,750)
+
+        self.y = random.randint(0,730)
+
+        self.set_vel()
+
+def create_asteroids():
+    numb_of_asteroids = 10
+
+    for x in range(numb_of_asteroids):
+        asteroids.append(Asteroid())
+        print(asteroids)
+
+
+
+
+
+
 
 def draw():
     win.fill(WHITE)
 
     player.draw()
-    asteroid.draw()
+    for asteroid in asteroids:
+        asteroid.draw()
 
     pygame.display.update()
 
@@ -114,6 +138,7 @@ player = Player(250,250,50,RED)
 asteroid = Asteroid()
 
 asteroid.spawn()
+create_asteroids()
 asteroid.set_vel()
 
 run = True
