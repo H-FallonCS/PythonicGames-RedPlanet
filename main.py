@@ -114,12 +114,12 @@ def create_asteroids():
 
     for x in range(numb_of_asteroids):
         asteroids.append(Asteroid())
-        print(asteroids)
-
-
-
-
-
+    
+def delete_asteroids():
+      if asteroid.x >= 800 or asteroid.x < -100 or asteroid.y >= 800 or asteroid.y <= -100:
+        index = asteroid.index()
+        print(index)
+        asteroid.remove(index)
 
 
 def draw():
@@ -127,6 +127,8 @@ def draw():
 
     player.draw()
     for asteroid in asteroids:
+        delete_asteroids()
+        print(len(asteroids))
         asteroid.draw()
 
     pygame.display.update()
@@ -137,9 +139,7 @@ clock = pygame.time.Clock()
 player = Player(250,250,50,RED)
 asteroid = Asteroid()
 
-asteroid.spawn()
 create_asteroids()
-asteroid.set_vel()
 
 run = True
 while run:
