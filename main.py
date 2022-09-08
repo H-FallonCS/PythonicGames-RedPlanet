@@ -109,53 +109,64 @@ class Asteroid:
 
         self.set_vel()
 
-def create_asteroids():
-    numb_of_asteroids = 10
+def create_asteroids(num_of_asteroids):
 
-    for x in range(numb_of_asteroids):
+    for x in range(num_of_asteroids):
         asteroids.append(Asteroid())
 
 
-def delete_asteroids(start_ticks):
+def delete_asteroids():
+    global start_ticks
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
 
-    if seconds >= 4:
+    if seconds >= 10:
         for asteroid in asteroids:
             index = asteroids.index(asteroid)
             asteroids.pop()
-    else:
-        print(seconds)
+
+def start_wave(num_of_asteroids):
+    global start_ticks
+    start_ticks=pygame.time.get_ticks() 
+
+    create_asteroids(num_of_asteroids)
 
 
     
 
 
-def draw():
+def draw_wave():
     win.fill(WHITE)
 
     player.draw()
     for asteroid in asteroids:
-        
         asteroid.draw()
-    delete_asteroids(start_ticks)
+    delete_asteroids()
     pygame.display.update()
 
+
+def return_empty_asteroids():
+    if len(asteroids) == 0:
+        return True
+    else:
+        return False
 
 clock = pygame.time.Clock()
 
 player = Player(250,250,50,RED)
 asteroid = Asteroid()
 
-create_asteroids()
-
-start_ticks=pygame.time.get_ticks() 
+round = 0
 
 run = True
 while run:
 
-
-    draw()
     
+    if return_empty_asteroids():
+        start_wave(20)
+
+    print(return_empty_asteroids())
+
+    draw_wave()
 
     clock.tick(FPS)
 
