@@ -90,7 +90,7 @@ class Asteroid:
 
         self.move()
         win.blit(self.texture,(self.x,self.y))
-        print(self.x,self.y)
+        
 
     #will spawn the asteroids at certain spots
     def spawn(self):
@@ -114,12 +114,20 @@ def create_asteroids():
 
     for x in range(numb_of_asteroids):
         asteroids.append(Asteroid())
+
+
+def delete_asteroids(start_ticks):
+    seconds=(pygame.time.get_ticks()-start_ticks)/1000
+
+    if seconds >= 4:
+        for asteroid in asteroids:
+            index = asteroids.index(asteroid)
+            asteroids.pop()
+    else:
+        print(seconds)
+
+
     
-def delete_asteroids():
-      if asteroid.x >= 800 or asteroid.x < -100 or asteroid.y >= 800 or asteroid.y <= -100:
-        index = asteroid.index()
-        print(index)
-        asteroid.remove(index)
 
 
 def draw():
@@ -127,10 +135,9 @@ def draw():
 
     player.draw()
     for asteroid in asteroids:
-        delete_asteroids()
-        print(len(asteroids))
+        
         asteroid.draw()
-
+    delete_asteroids(start_ticks)
     pygame.display.update()
 
 
@@ -141,8 +148,11 @@ asteroid = Asteroid()
 
 create_asteroids()
 
+start_ticks=pygame.time.get_ticks() 
+
 run = True
 while run:
+
 
     draw()
     
